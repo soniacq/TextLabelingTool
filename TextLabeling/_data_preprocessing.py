@@ -475,7 +475,7 @@ def teach_learner(labeled_sample_texts):
             search_results = get_candidates_instances(learner, n_queries=5)
     return search_results
 
-def get_initial_oracle(initial_dataset, unlabeled_dataset, validation_dataset):
+def get_initial_oracle(initial_dataset, unlabeled_dataset, validation_dataset, model=None):
     global performance_history, learner
     global X_seed, y_seed, X_validation, y_validation, X_unlabeled, y_unlabeled
     # tranform to numpy array
@@ -484,7 +484,11 @@ def get_initial_oracle(initial_dataset, unlabeled_dataset, validation_dataset):
     X_unlabeled, y_unlabeled = dataframe_to_nparray(unlabeled_dataset, 'article', 'articleofinterest')
     
     # oracle model
-    learner = create_single_learner(X_seed, y_seed)
+    if(model == None):
+        learner = create_single_learner(X_seed, y_seed)
+    else:
+        learner = model
+    
     # predict instances from validation dataset
     predictions = learner.predict(X_validation)
     score = f1_score(y_validation, predictions)
@@ -498,20 +502,20 @@ def comm_get_candidates(msg):
     return {"candidates": data_dict}
 setup_comm_api('get_candidates_comm_api', comm_get_candidates)
 
-def plot_guided_labeling(initial_dataset, unlabeled_dataset, validation_dataset, category_column='category', text_column='text',  positive_label=1, negative_label=0, words_entities=None):
+def plot_guided_labeling(initial_dataset, unlabeled_dataset, validation_dataset, model=None, category_column='category', text_column='text',  positive_label=1, negative_label=0, words_entities=None):
     from IPython.core.display import display, HTML
     global global_processed_data
     id = id_generator()
-    learner = get_initial_oracle(initial_dataset, unlabeled_dataset, validation_dataset)
+    learner = get_initial_oracle(initial_dataset, unlabeled_dataset, validation_dataset, model)
     data_dict = get_candidates_instances(learner, n_queries=5)
     html_all = make_html(data_dict, id)
     display(HTML(html_all))
 
-def plot_guided_labeling_html(initial_dataset, unlabeled_dataset, validation_dataset, category_column='category', text_column='text',  positive_label=1, negative_label=0, words_entities=None):
+def plot_guided_labeling_html(initial_dataset, unlabeled_dataset, validation_dataset, model=None, category_column='category', text_column='text',  positive_label=1, negative_label=0, words_entities=None):
     from IPython.core.display import display, HTML
     global global_processed_data
     id = id_generator()
-    learner = get_initial_oracle(initial_dataset, unlabeled_dataset, validation_dataset)
+    learner = get_initial_oracle(initial_dataset, unlabeled_dataset, validation_dataset, model)
     data_dict = get_candidates_instances(learner, n_queries=5)
     html_all = make_html(data_dict, id)
     return html_all

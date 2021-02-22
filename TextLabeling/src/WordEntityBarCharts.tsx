@@ -5,7 +5,7 @@ import {Spec as VgSpec} from 'vega';
 import * as vegaLiteImport from 'vega-lite';
 import {TopLevelSpec as VlSpec, compile} from 'vega-lite';
 import './WordEntityBarCharts.css';
-import {Snackbar, IconButton} from "@material-ui/core";
+import {Snackbar, IconButton} from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 
 import ReactMarkdown from 'react-markdown';
@@ -143,8 +143,7 @@ class WordEntityBarCharts extends React.PureComponent<
           groupby: ['word'],
         },
         {
-          calculate:
-            "datum.category == 'negative' ? 'Negative' : 'Positive'",
+          calculate: "datum.category == 'negative' ? 'Negative' : 'Positive'",
           as: 'CategoryGroup',
         },
       ],
@@ -184,7 +183,11 @@ class WordEntityBarCharts extends React.PureComponent<
         },
         tooltip: [
           {field: 'Value', type: 'quantitative', title: 'Frequency'},
-          {field: 'total_documents', type: 'quantitative', title: 'Total of documents'},
+          {
+            field: 'total_documents',
+            type: 'quantitative',
+            title: 'Total of documents',
+          },
         ],
         color: {
           field: 'CategoryGroup',
@@ -280,7 +283,11 @@ class WordEntityBarCharts extends React.PureComponent<
           },
           tooltip: [
             {field: 'Value', type: 'quantitative', title: 'Frequency'},
-            {field: 'total_documents', type: 'quantitative', title: 'Total of documents'},
+            {
+              field: 'total_documents',
+              type: 'quantitative',
+              title: 'Total of documents',
+            },
           ],
           color: {
             field: 'CategoryGroup',
@@ -320,8 +327,7 @@ class WordEntityBarCharts extends React.PureComponent<
       transform: [
         {calculate: 'datum.frequency', as: 'Value'},
         {
-          calculate:
-            "datum.category == 'negative' ? 'Negative' : 'Positive'",
+          calculate: "datum.category == 'negative' ? 'Negative' : 'Positive'",
           as: 'CategoryGroup',
         },
       ],
@@ -338,7 +344,10 @@ class WordEntityBarCharts extends React.PureComponent<
     const info = JSON.stringify(args[1]);
     this.setState({info: info, responseMessageExport: ''});
     if (JSON.parse(info).samples) {
-      this.getSampleText(JSON.parse(info).samples[0], JSON.parse(info).category);
+      this.getSampleText(
+        JSON.parse(info).samples[0],
+        JSON.parse(info).category
+      );
     }
   }
 
@@ -519,15 +528,15 @@ class WordEntityBarCharts extends React.PureComponent<
             </select>
           </div>
         </div>
-        <div className="accordion" id={"accordion_word" + processedData.id}>
+        <div className="accordion" id={'accordion_word' + processedData.id}>
           <div className="card">
             <div
               className="card-header"
-              id={"heading_word" + processedData.id}
+              id={'heading_word' + processedData.id}
               data-toggle="collapse"
-              data-target={"#collapse_word" + processedData.id}
+              data-target={'#collapse_word' + processedData.id}
               aria-expanded="true"
-              aria-controls={"collapse_word" + processedData.id}
+              aria-controls={'collapse_word' + processedData.id}
             >
               <h2 className="mb-0">
                 <button className="btn btn-link collapsed" type="button">
@@ -536,10 +545,10 @@ class WordEntityBarCharts extends React.PureComponent<
               </h2>
             </div>
             <div
-              id={"collapse_word" + processedData.id}
+              id={'collapse_word' + processedData.id}
               className="collapse"
-              aria-labelledby={"heading_word" + processedData.id}
-              data-parent={"#accordion_word" + processedData.id}
+              aria-labelledby={'heading_word' + processedData.id}
+              data-parent={'#accordion_word' + processedData.id}
             >
               <div className="card-body">
                 <Vega
@@ -551,15 +560,15 @@ class WordEntityBarCharts extends React.PureComponent<
             </div>
           </div>
         </div>
-        <div className="accordion" id={"accordion_entity" + processedData.id}>
+        <div className="accordion" id={'accordion_entity' + processedData.id}>
           <div className="card">
             <div
               className="card-header"
-              id={"heading_entity" + processedData.id}
+              id={'heading_entity' + processedData.id}
               data-toggle="collapse"
-              data-target={"#collapse_entity" + processedData.id}
+              data-target={'#collapse_entity' + processedData.id}
               aria-expanded="true"
-              aria-controls={"collapse_entity" + processedData.id}
+              aria-controls={'collapse_entity' + processedData.id}
             >
               <h2 className="mb-0">
                 <button className="btn btn-link collapsed" type="button">
@@ -568,10 +577,10 @@ class WordEntityBarCharts extends React.PureComponent<
               </h2>
             </div>
             <div
-              id={"collapse_entity" + processedData.id}
+              id={'collapse_entity' + processedData.id}
               className="collapse"
-              aria-labelledby={"heading_entity" + processedData.id}
-              data-parent={"#accordion_entity" + processedData.id}
+              aria-labelledby={'heading_entity' + processedData.id}
+              data-parent={'#accordion_entity' + processedData.id}
             >
               <div className="card-body">
                 <Vega
@@ -583,11 +592,14 @@ class WordEntityBarCharts extends React.PureComponent<
             </div>
           </div>
         </div>
-        <div className="accordion" id={"accordion_sampletext" + processedData.id}>
+        <div
+          className="accordion"
+          id={'accordion_sampletext' + processedData.id}
+        >
           <div className="card">
             <div
               className="card-header card-sampletext"
-              id={"heading_sampletext" + processedData.id}
+              id={'heading_sampletext' + processedData.id}
               data-toggle="collapse"
               aria-expanded="true"
             >
@@ -599,11 +611,14 @@ class WordEntityBarCharts extends React.PureComponent<
                     JSON.parse(this.state.info).word}
                 </u>
               </h4>
-              {
-                JSON.parse(this.state.info).samples && (
-                  <>
-                  <div className="word-info"><b>Frequency: </b>{JSON.parse(this.state.info).frequency} <br/>
-                  <b>Total of documents: </b>{JSON.parse(this.state.info).total_documents} </div>
+              {JSON.parse(this.state.info).samples && (
+                <>
+                  <div className="word-info">
+                    <b>Frequency: </b>
+                    {JSON.parse(this.state.info).frequency} <br />
+                    <b>Total of documents: </b>
+                    {JSON.parse(this.state.info).total_documents}{' '}
+                  </div>
                   <div
                     className="btn-group btn-group-sm"
                     role="group"
@@ -612,27 +627,37 @@ class WordEntityBarCharts extends React.PureComponent<
                       float: 'initial',
                       marginTop: '7px',
                       marginRight: '8px',
-                      borderRadius: '4px'}}
+                      borderRadius: '4px',
+                    }}
                   >
                     <button
                       type="button"
-                      title={"Export " + JSON.parse(this.state.info).total_documents + " documents."}
+                      title={
+                        'Export ' +
+                        JSON.parse(this.state.info).total_documents +
+                        ' documents.'
+                      }
                       className="btn btn-gray btn-sm active"
-                      style={{ padding: '3px'}}
-                      onClick={() => this.exportAllTexts(JSON.parse(this.state.info).samples, JSON.parse(this.state.info).category, JSON.parse(this.state.info).word)}
+                      style={{padding: '3px'}}
+                      onClick={() =>
+                        this.exportAllTexts(
+                          JSON.parse(this.state.info).samples,
+                          JSON.parse(this.state.info).category,
+                          JSON.parse(this.state.info).word
+                        )
+                      }
                     >
                       Export all documents
                     </button>
                   </div>
-                  </>
-                )
-              }
+                </>
+              )}
             </div>
             <div
-              id={"collapse_sampletext" + processedData.id}
+              id={'collapse_sampletext' + processedData.id}
               className="collapse show"
-              aria-labelledby={"heading_sampletext" + processedData.id}
-              data-parent={"#accordion_sampletext" + processedData.id}
+              aria-labelledby={'heading_sampletext' + processedData.id}
+              data-parent={'#accordion_sampletext' + processedData.id}
             >
               <div
                 className="card-body"
@@ -651,13 +676,26 @@ class WordEntityBarCharts extends React.PureComponent<
             </div>
           </div>
         </div>
-        <Snackbar open={this.state.exportedTextsMessage} onClose={() => {this.setState({exportedTextsMessage: false})}}
-                message={"Documents exported. Access with `VisualTextAnalyzer.get_exported_texts()`"}
-                autoHideDuration={6000}
-                action={<IconButton size="small" aria-label="close" color="inherit" onClick={() => this.setState({exportedTextsMessage: false})}>
-                  <CloseIcon fontSize="small" />
-                </IconButton>}
-      />
+        <Snackbar
+          open={this.state.exportedTextsMessage}
+          onClose={() => {
+            this.setState({exportedTextsMessage: false});
+          }}
+          message={
+            'Documents exported. Access with `VisualTextAnalyzer.get_exported_texts()`'
+          }
+          autoHideDuration={6000}
+          action={
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={() => this.setState({exportedTextsMessage: false})}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          }
+        />
       </div>
     );
   }

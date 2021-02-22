@@ -6,3 +6,4 @@ notebook
 pandas
 nltk
 spacy
+modAL

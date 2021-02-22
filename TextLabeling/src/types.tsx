@@ -24,12 +24,12 @@ export interface Metadata {
   sample: string[];
 }
 
-export interface TextInfo{
+export interface TextInfo {
   text: string;
   label: string;
 }
 
-export interface PerformanceHistory{
-  'Iterations': number;
-  'F1': number;
+export interface PerformanceHistory {
+  Iterations: number;
+  F1: number;
 }
