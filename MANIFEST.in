@@ -1,0 +1,2 @@
+include TextLabeling/build/textExplorer.js
+include TextLabeling/data/lifeexpectancydata.csv

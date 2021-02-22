@@ -1,0 +1,12 @@
+MANIFEST.in
+README.md
+setup.py
+TextLabeling/__init__.py
+TextLabeling/_comm_api.py
+TextLabeling/_data_preprocessing.py
+TextLabeling/_demodata.py
+text_labeling.egg-info/PKG-INFO
+text_labeling.egg-info/SOURCES.txt
+text_labeling.egg-info/dependency_links.txt
+text_labeling.egg-info/requires.txt
+text_labeling.egg-info/top_level.txt
