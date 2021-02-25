@@ -1,2 +1,2 @@
-from ._data_preprocessing import plot_text_summary, get_exported_texts, get_words_entities, plot_guided_labeling, plot_guided_labeling_html
+from ._data_preprocessing import plot_text_summary, get_exported_texts, get_words_entities, plot_guided_labeling, plot_guided_labeling_html, comm_get_candidates
 from ._demodata import get_yelp_labelled_data
