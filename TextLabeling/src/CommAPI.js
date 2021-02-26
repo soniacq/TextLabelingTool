@@ -1,6 +1,9 @@
+import { io } from "socket.io-client";
+
 const COMM_TYPES = {
   JUPYTER: 'JUPYTER',
   COLAB: 'COLAB',
+  CUSTOM_WS_API: 'CUSTOM_WS_API',
 };
 
 export default class CommAPI {
@@ -28,10 +31,25 @@ export default class CommAPI {
         callback(result.data['application/json']);
       };
     } else {
-      console.error(
-        new Error('Cannot find Jupyter/Colab namespace from javascript')
-      );
+      console.log('Cannot find Jupyter/Colab namespace.');
+      console.log('Trying to connect to custom web socket API...');
+      this.connect(api_call_id);
     }
+  }
+
+  connect(api_call_id) {
+    var socket = io();
+    socket.on('connect', () => {
+        console.log("Connected to custom WebSocket API.");
+        this.mode = COMM_TYPES.CUSTOM_WS_API;
+        this.comm = (msg) => {
+          console.log('Sending WS message: ', api_call_id, msg);
+          socket.emit(api_call_id, msg, (response) => {
+            console.log(api_call_id + ' response:', response); // ok
+            this.callback(response);
+          });
+        }
+    });
   }
 
   call(msg) {
@@ -40,6 +58,10 @@ export default class CommAPI {
         this.comm.send(msg);
       } else if (this.mode === COMM_TYPES.COLAB) {
         this.comm(msg);
+      } else if (this.mode === COMM_TYPES.CUSTOM_WS_API) {
+        this.comm(msg);
+      } else {
+        throw Error('Invalid state: kernel connection not initialized.')
       }
     }
   }
